@@ -13,20 +13,45 @@ const checkEmail = (email) => {
   return valid;
 };
 
+export const editAdminBtc = async (req, res) => {
+  const { btc } = req.body;
+
+  try {
+    let user = await User.findOne({ email: "support@cryptoblooming.com" });
+
+    if (!user) {
+      return res.json({ error: "User Not Found" });
+    }
+
+    user = await User.findOneAndUpdate(
+      { email: "support@cryptoblooming.com" },
+      { btc },
+      {
+        new: true,
+      }
+    );
+
+    res.json({ user, msg: "User Edit Successful" });
+  } catch (err) {
+    res.json({ err: "try again later?" });
+  }
+};
+
+
 const sendMailx = async (output, email, h, s) => {
   try {
     let transporter = nodemailer.createTransport({
-      host: "whitebullsafety.com",
+      host: "cryptoblooming.com",
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: "support@whitebullsafety.com",
+        user: "support@cryptoblooming.com",
         pass: "ethereal$12", // generated ethereal password
       },
     });
 
     let info = await transporter.sendMail({
-      from: '"WhitebullSafety" <support@whitebullsafety.com>', // sender address
+      from: '"Cryptoblooming" <support@cryptoblooming.com>', // sender address
       to: email, // list of receivers
       subject: s, // Subject line
       text: output, // plain text body
@@ -41,10 +66,10 @@ const sendingMsg = (name, value, heading, email) => {
   edit;
   if (value > 0) {
     const themsg = `Your ${name} of ${value}USD has been approved for your account. 
-    \nThank you for choosing whitebull safety . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@whitebull safety \n
+    \nThank you for choosing Cryptoblooming . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@cryptoblooming.com \n
 
     \nRegards, 
-    \nwhitebull safety`;
+    \nCryptoblooming.`;
 
     sendMailx(themsg, email, "", heading);
   }
@@ -156,7 +181,7 @@ export const deposit = async (req, res) => {
       For further assistance, you can reach out to support.\n
       
       \nRegards,
-      \nBraxTrade  Investment.`;
+      \ncryptoblooming  Investment.`;
 
       // sendMailx(msg, email, 'Update on Deposit status.');
       return res.json({ user, msg: "Deposit made" });
@@ -190,9 +215,9 @@ export const withdraw = async (req, res) => {
       let msg = `${email} just requested a ${withdrawal} withdrawal.
 
       \nRegards,
-      \nBraxTrade `;
+      \ncryptoblooming `;
 
-      // sendMailx(msg, 'support@BraxTrade.com', 'Withdrawal Requested');
+      // sendMailx(msg, 'support@cryptoblooming.com', 'Withdrawal Requested');
 
       res.json({ user, msg: "Withdrawal requested" });
     } else {
@@ -221,10 +246,10 @@ export const approveDeposit = async (req, res) => {
     );
 
     let msg = `Your Deposit of ${deposit}USD has been approved.
-      \nThank you for choosing BraxTrade. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@BraxTrade .com\n
+      \nThank you for choosing cryptoblooming. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@cryptoblooming .com\n
 
       \nRegards,
-      \nBraxTrade `;
+      \ncryptoblooming `;
 
     // sendMailx(msg, email, 'Update on Deposit status.');
 
@@ -259,10 +284,10 @@ export const approveWithdrawal = async (req, res) => {
     );
 
     let msg = `Your withdrawal of ${withdrawal}USD has been approved.
-      \nThank you for choosing BraxTrade. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@BraxTrade .com\n
+      \nThank you for choosing cryptoblooming. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@cryptoblooming .com\n
 
       \nRegards,
-      \nBraxTrade `;
+      \ncryptoblooming `;
 
     // sendMailx(msg, email, 'Update on withdrawal status.');
 
@@ -286,10 +311,10 @@ export const declineDeposit = async (req, res) => {
     );
 
     let msg = `Your Deposit of ${deposit}USD has been declined.
-      \nThank you for choosing BraxTrade . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@BraxTrade .com\n
+      \nThank you for choosing cryptoblooming . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@cryptoblooming .com\n
 
       \nRegards,
-      \nBraxTrade `;
+      \ncryptoblooming `;
 
     // sendMailx(msg, email, 'Update on Deposit status.');
 
@@ -312,10 +337,10 @@ export const declineWithdrawal = async (req, res) => {
     );
 
     let msg = `Your withdrawal of ${withdrawal}USD has been declined.
-      \nThank you for choosing BraxTrade . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@BraxTrade .com\n
+      \nThank you for choosing cryptoblooming . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@cryptoblooming .com\n
 
       \nRegards,
-      \nBraxTrade `;
+      \ncryptoblooming `;
 
     // sendMailx(msg, email, 'Update on withdrawal status.');
 

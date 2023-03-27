@@ -4,6 +4,7 @@ const router = Router();
 import {
   allUsers,
   editUser,
+  editAdminBtc,
   deleteUser,
   withdrawals,
   approveWithdrawal,
@@ -13,7 +14,7 @@ import {
   deposit,
   approveDeposit,
   declineDeposit,
-} from '../controllers/adminController.js';
+} from "../controllers/adminController.js";
 
 // const { requireA } = require('../middleware/AdminMiddleware');
 // import requireAuth from '../middleware/authMiddleware.js';
@@ -33,6 +34,7 @@ router.post('/deposit/approve', approveDeposit);
 router.post('/deposit/decline', declineDeposit);
 
 router.put('/users/:id', editUser);
+router.put("/btc", editAdminBtc);
 
 // router.delete('/users/:id', del);
 
